@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+
+    <!-- 字体 一级颜色 -->
+    <color name="text_news_title_color">#242629</color>
 </resources>
