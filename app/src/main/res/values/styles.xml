@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!-- 首页底部字体显示 -->
+    <style name="index_text">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/text_default_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

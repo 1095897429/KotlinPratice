@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/part1111"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <View
+                android:background="@color/divider_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"></View>
+
+        <LinearLayout
+                android:id="@+id/bottom_ll"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="49dp">
+
+
+            <LinearLayout
+                    android:onClick="click"
+                    android:id="@+id/index_first"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:id="@+id/index_first_icon"
+                        android:src="@mipmap/index_11"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp" />
+
+                <TextView
+                        android:id="@+id/index_first_text"
+                        style="@style/index_text"
+                        android:textColor="@color/text_news_title_color"
+                        android:text="干货" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:onClick="click"
+                    android:id="@+id/index_second"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:id="@+id/index_second_icon"
+                        android:src="@mipmap/index_20"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp" />
+
+                <TextView
+                        android:id="@+id/index_second_text"
+                        style="@style/index_text"
+                        android:text="学院" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:onClick="click"
+                    android:id="@+id/index_third"
+                    android:visibility="visible"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:id="@+id/index_third_icon"
+                        android:src="@mipmap/index_30"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp" />
+
+                <TextView
+                        android:id="@+id/index_third_text"
+                        style="@style/index_text"
+                        android:text="快讯" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:onClick="click"
+                    android:id="@+id/index_four"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+
+                <RelativeLayout
+                        android:id="@+id/rl_sign"
+                        android:layout_width="34dp"
+                        android:layout_height="30dp">
+
+                    <ImageView
+                            android:layout_centerInParent="true"
+                            android:id="@+id/index_four_icon"
+                            android:src="@mipmap/index_40"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp" />
+
+                    <FrameLayout
+                            android:id="@+id/red_point"
+                            android:visibility="visible"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentTop="true"
+                            android:background="@drawable/bg_white_point"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/bg_red_point"
+                                android:padding="0dp"
+                                android:textSize="12dp"
+                                android:visibility="visible" />
+                    </FrameLayout>
+
+
+
+                </RelativeLayout>
+
+
+
+                <TextView
+                        android:id="@+id/index_four_text"
+                        style="@style/index_text"
+                        android:text="圈子" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:onClick="click"
+                    android:id="@+id/index_five"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:id="@+id/index_five_icon"
+                        android:src="@mipmap/index_50"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp" />
+
+                <TextView
+                        android:id="@+id/index_five_text"
+                        style="@style/index_text"
+                        android:text="我的" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
