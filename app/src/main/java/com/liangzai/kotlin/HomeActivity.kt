@@ -1,11 +1,14 @@
 package com.liangzai.kotlin
 
+import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.liangzai.kotlin.activity.BaseActivity
 import com.liangzai.kotlin.fragment.*
 import com.liangzai.kotlin.utils.ToolUtils
 import kotlinx.android.synthetic.main.common_bottom_layout.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author zhouliang
@@ -25,9 +28,10 @@ class HomeActivity : BaseActivity() {
     var mCurrentFragment: Fragment? = null
 
 
-    override fun initView() {
-        setContentView(R.layout.activity_main)
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
     }
+
 
     override fun initData() {
         ToolUtils.getStartInfo()
@@ -35,9 +39,10 @@ class HomeActivity : BaseActivity() {
         initFragment()
     }
 
+
     /** 默认的Fragment */
     private fun initFragment() {
-        val transaction = supportFragmentManager.beginTransaction()
+        var transaction = supportFragmentManager.beginTransaction()
         mFirstFragment = FirstFragment.getInstance()
         mCurrentFragment = mFirstFragment
         transaction.add(R.id.fragmentLayout, mCurrentFragment!!)
@@ -105,7 +110,7 @@ class HomeActivity : BaseActivity() {
     /** 切换 Fragment */
     private fun switchFragment(fragment: Fragment?) {
         if(fragment !== mCurrentFragment){
-            val transaction = supportFragmentManager.beginTransaction()
+            var transaction = supportFragmentManager.beginTransaction()
             transaction.hide(mCurrentFragment!!)
             mCurrentFragment = fragment
             if (!fragment!!.isAdded) {
@@ -118,6 +123,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun hideImageStatus() {
+
         index_first_icon.setImageResource(R.mipmap.index_10)
         index_second_icon.setImageResource(R.mipmap.index_20)
         index_third_icon.setImageResource(R.mipmap.index_30)

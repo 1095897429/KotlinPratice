@@ -1,6 +1,8 @@
 package com.liangzai.kotlin.fragment
 
+import android.view.View
 import com.liangzai.kotlin.R
+
 
 /**
  * @author zhouliang
@@ -10,15 +12,27 @@ import com.liangzai.kotlin.R
  */
 class FiveFragment : BaseFragment(){
 
+
     override fun getLayoutId(): Int {
        return R.layout.fragment_five
     }
 
+    override fun initData() {
+        //获取到包管理类实例
+    }
 
     companion object{
         fun getInstance():FiveFragment{
             return FiveFragment()
         }
     }
+
+
+    /** 点击事件 */
+    fun click(v: View?){
+        when(v?.id){
+        }
+    }
+
 
 }

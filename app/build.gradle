@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+def releaseTime() {
+    return new Date().format("MMddHHmm", TimeZone.getTimeZone("GMT+8"))
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
@@ -14,11 +18,83 @@ android {
         versionCode 1
         versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //MultiDex分包方法
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    //配置签名
+    signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('/Users/zhouliang/Desktop/KotlinPratice/znl.jks')
+            storePassword '123456'
+        }
+
+        release {
+            keyAlias 'ngbj'
+            keyPassword 'key0'
+            storeFile file('/Users/zhouliang/Desktop/KotlinPratice/znl.jks')
+            storePassword '123456'
+            v2SigningEnabled false//关闭签名方案 APK Signature Scheme v2
+        }
+    }
+
+
+    buildTypes {
+        debug{
+            buildConfigField("boolean","LOG_DEBUG","true")
+
+            buildConfigField("String","URL","\"http://ngtest.xy860.com/\"")
+            buildConfigField("String","H5URL","\"http://apph5.xy860.com/\"")
+
+//            buildConfigField("String","URL","\"http://pre.niaogebiji.com/\"")
+//            buildConfigField("String","H5URL","\"http://preapph5.niaogebiji.com/\"")
+
+
+//            buildConfigField("String", "URL", "\"http://www.niaogebiji.com/\"")
+//            buildConfigField("String","H5URL","\"http://apph5.niaogebiji.com/\"")
+
+            buildConfigField("String","SecretKey","\"TESTINGT82U8qPK5wSyjtoyseZcP2iXlsN2VdC5\"")
+//            signingConfig signingConfigs.config
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false // Zipalign优化
+            crunchPngs false //关闭crunchPng优化, 以加快构建
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            buildConfigField("String", "URL", "\"http://www.niaogebiji.com/\"")
+
+            buildConfigField("String","H5URL","\"http://apph5.niaogebiji.com/\"")
+            buildConfigField("String", "SecretKey", "\"STAGINGT82U8qPK5wSyjtoyseZcP2iXlsN2VdC5\"")
+            signingConfig signingConfigs.release
+            minifyEnabled true  //代码混淆
+            shrinkResources true //资源压缩
+            zipAlignEnabled true // Zipalign优化
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // 打包后自动修改apk的名字 variant变体的值基本在defaultConfig中配置的
+            applicationVariants.all { variant ->
+                variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+                    if (variant.buildType.name == 'release') {
+                        apkData.outputFileName = "app_" +
+                                variant.versionName + "_" +
+                                releaseTime() + "" +
+                                "_release.apk"
+                    }
+                }
+
+            }
         }
     }
 }
@@ -39,4 +115,19 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.24.7'
     //log
     implementation 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    //分包
+    implementation 'androidx.multidex:multidex:2.0.1'
+    //design(recyclerView)
+    implementation 'com.android.support:design:29.0.0'
+    //adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.16'
+    //circleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //network
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
 }

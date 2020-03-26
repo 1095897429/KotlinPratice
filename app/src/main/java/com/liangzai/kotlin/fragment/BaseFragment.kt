@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.socks.library.KLog
 
 /**
@@ -26,10 +28,24 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initData()
     }
+
+    open fun initData(){}
 
 
     abstract fun getLayoutId():Int
+
+
+    open fun initRyLayout(recyclerView : RecyclerView){
+        var mLinearLayoutManager = LinearLayoutManager(activity)
+        //设置默认垂直布局
+        //设置默认垂直布局
+        mLinearLayoutManager.setOrientation(RecyclerView.VERTICAL)
+        //设置布局管理器
+        //设置布局管理器
+        recyclerView.setLayoutManager(mLinearLayoutManager)
+    }
+
 
 }

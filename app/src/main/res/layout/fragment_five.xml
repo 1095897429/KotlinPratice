@@ -1,12 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:paddingTop="@dimen/status_bar_height"
+              android:background="@color/white"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
-            android:text="5"
+
+    <androidx.core.widget.NestedScrollView
+            android:overScrollMode="never"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <LinearLayout
+                    android:padding="16dp"
+                    android:background="@drawable/bg_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="156dp"
+                        android:orientation="vertical">
+
+                    <RelativeLayout
+                            android:id="@+id/toUserInfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/head_icon"
+                                android:src="@mipmap/head_default"
+                                app:civ_border_width="2dp"
+                                app:civ_border_color="@color/colorAccent"
+                                android:layout_centerVertical="true"
+                                android:layout_width="78dp"
+                                android:layout_height="78dp"/>
+
+                        <LinearLayout
+                                android:gravity="center|left"
+                                android:layout_marginLeft="16dp"
+                                android:layout_toRightOf="@+id/head_icon"
+                                android:layout_alignTop="@+id/head_icon"
+                                android:layout_alignBottom="@+id/head_icon"
+                                android:layout_centerVertical="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                            <TextView
+                                    android:id="@+id/name"
+                                    android:text="周小明"
+                                    android:textSize="22sp"
+                                    android:textColor="@color/text_news_title_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            <Space android:layout_width="match_parent" android:layout_height="8dp"/>
+
+                            <TextView
+                                    android:id="@+id/profile"
+                                    android:text="这个人很懒,什么都没有留下"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/text_second_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                            android:paddingLeft="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <LinearLayout
+                                android:gravity="center"
+                                android:id="@+id/part1111_1"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                            <TextView
+                                    android:id="@+id/read_time"
+                                    android:text="0"
+                                    android:layout_gravity="left"
+                                    android:textSize="18sp"
+                                    android:textColor="@color/text_news_title_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"/>
+
+                            <TextView
+                                    android:text="粉丝"
+                                    android:textSize="11sp"
+                                    android:textColor="#AAAEB3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:gravity="center"
+                                android:layout_marginLeft="22dp"
+                                android:id="@+id/part2222_2"
+                                android:layout_toRightOf="@+id/part1111_1"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                            <TextView
+                                    android:id="@+id/medal_count"
+                                    android:text="0"
+                                    android:layout_gravity="left"
+                                    android:textSize="18sp"
+                                    android:textColor="@color/text_news_title_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"/>
+
+                            <TextView
+                                    android:text="获赞"
+                                    android:textSize="11sp"
+                                    android:textColor="#AAAEB3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:id="@+id/part3333_3"
+                                android:gravity="center"
+                                android:layout_marginLeft="22dp"
+                                android:layout_toRightOf="@+id/part2222_2"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                            <TextView
+                                    android:id="@+id/feather_count"
+                                    android:text="0"
+                                    android:layout_gravity="left"
+                                    android:textSize="18sp"
+                                    android:textColor="@color/text_news_title_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"/>
+
+                            <TextView
+                                    android:text="关注"
+                                    android:textSize="11sp"
+                                    android:textColor="#AAAEB3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:paddingLeft="16dp"
+                          android:paddingRight="16dp"
+            android:orientation="vertical">
+                <LinearLayout
+                        android:id="@+id/advice_ll"
+                        android:onClick="click"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:layout_weight="1"
+                            android:drawableLeft="@mipmap/icon_my_advice"
+                            android:drawablePadding="8dp"
+                            android:text="意见反馈"
+                            android:textColor="@color/text_news_title_color"
+                            android:textSize="16sp" />
+
+
+                    <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@mipmap/icon_my_right" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/setting_ll"
+                        android:onClick="click"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:layout_weight="1"
+                            android:drawableLeft="@mipmap/icon_my_advice"
+                            android:drawablePadding="8dp"
+                            android:text="设置"
+                            android:textColor="@color/text_news_title_color"
+                            android:textSize="16sp" />
+
+
+                    <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@mipmap/icon_my_right" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/icon_ll"
+                        android:onClick="click"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:layout_weight="1"
+                            android:drawableLeft="@mipmap/icon_my_advice"
+                            android:drawablePadding="8dp"
+                            android:text="动态的更换桌面Icon"
+                            android:textColor="@color/text_news_title_color"
+                            android:textSize="16sp" />
+
+
+                    <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@mipmap/icon_my_right" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
 
 </LinearLayout>

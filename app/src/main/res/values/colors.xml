@@ -7,6 +7,8 @@
 
     <!-- 字体 一级颜色 -->
     <color name="text_news_title_color">#242629</color>
+    <!-- 字体 次级颜色 -->
+    <color name="text_second_color">#818386</color>
     <!-- 字体 首页颜色 -->
     <color name="text_default_color">#C0C0C0</color>
     <!-- 分割line-->

@@ -39,7 +39,7 @@
   b.1 until 5 在...范围内 不包含最后一个
 
   7.Java 相等性判断 [复习了一下Java的值传递 值的拷贝 空间地址的传递]
-  a.Java 的相等性 复习【 默认的是比较是不是同一个对象✅ 重写equals让其对象的内容相等】
+  a.Java 的相等性 复习【 默认的equals是比较是不是指向同一个对象✅ 重写equals让其对象的结构内容相等】
     【哈希表/散列表 可以理解成竖直的列表 数组中存放的是链表结构Entry/Node对象】
         -- 通过key的hashCode算出在数组的索引，在通过key + value + bucketIndex 利用createEntry添加Node
 
@@ -52,6 +52,7 @@
   8.Kotlin相等性判断
   a.=== 表示 是不是指向同一个对象
   b.==  表示 同Java的equals一样，表示结构内容
+  c.!= 表示引用不相等
 
   9.空处理
   a.在条件中检查null
@@ -68,7 +69,7 @@
   b.匿名类通常使用lambda表达式【仅留下方法的参数】💖
 
 
-================================================================== Webview 的一些知识 ==============================================================================
+================================================================== Webview 的一些知识  2020.3.23 看过 ==============================================================================
 
 1.setWebViewClient作用
 a.各种事件的回调（页面加载开始/完成,拦截url跳转）
@@ -82,7 +83,6 @@ a.addJavascriptInterface(对象1，对象1别名) -- 对象1是注入到WebView�
     sendMessage(Js传递json字符串给Native)
 b.javascript:让h5知道需要调用JS函数
     toGiveToken(项目中给token给Js)
-c.传递值
 
 
 c.获取JS中的返回值
@@ -95,13 +95,160 @@ a.各种事件的回调(通知当前网页进度，定位权限询问，alert弹
     onJsAlert -- 网页弹框的监听
 
 
+================================================================== 状态栏 的一些知识 2020.3.23 看过 ==============================================================================
+
+1.要求状态栏透明，内容布局延伸到系统状态栏
+    a.Android 5.0 及其以后版本
+        设置 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN + setStatusBarColor()设置透明
+    b.Android 6.0 状态栏字体颜色默认是白色
+        设置 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) 可设置黑色
 
 
 
+================================================================== RecyclerView 的一些知识 ==============================================================================
+
+1.单/多布局
+    a.getItemViewType(position)返回每个item的布局类型 -- onCreateViewHolder参数中的viewType表示布局的类型 -- onBindViewHolder中通过type加载不同数据
+    b.BaseRecyclerViewAdapterHelper第三方库
+        a.new BaseQuickAdapter()
+        b.setNewData(List<T> data)
+
+        c.单布局 -- getItemViewType(position) -- getDefItemViewType(position) -- 调用系统原生的getItemViewType方法
+                -- onCreateViewHolder(viewType) -- createBaseViewHolder(viewType) -- new BaseViewHolder(view)[view是item布局]
+                -- onBindViewHolder(positions) -- 抽象convert函数
+
+        d.多布局 -- getItemViewType(position) -- getDefItemViewType(position) -- 调用多布局的getDefItemViewType[获取Bean的type]
+                -- onCreateViewHolder(viewType) -- 调用多布局的onCreateDefViewHolder函数 -- 调用多布局的createBaseViewHolder() -- 调用多布局getLayoutId函数 -- new BaseViewHolder(view)[view是item布局]
+                -- onBindViewHolder(positions) -- 抽象convert函数
+                -- addItemType(RIGHT_IMG_TYPE, R.layout.xxx);将布局添加到layouts集合中[layouts类似于[type,resId]]
+
+        e.头布局 -- LinearLayout.add(headView)
+
+    c.什么时候复用view(通过onCreateViewHolder会new 一个ViewHolder)
+         a.复用
+          a.mAttachedScrap
+          b.mCachedViews
+         b.回收
+          a.放入到mRecyclerPool中的HolderView 会回调adapter中的onViewRecycled函数，将重置后的holder放入到pool中
+
+    d.ItemDecoration
+        a.
 
 
+================================================================== 圆形头像的一些知识 ==============================================================================
+
+1.PorterDuff.Mode.SRC_IN (Android 9.0上绘制有问题)
+    a.先绘制的是目标图
+    b.在两者相交的地方绘制源图
+2.利用BitmapShader
+    a.
+3.GradientDrawable(没使用过)
+    a.就是shape的xml布局
+    b.原理就是利用Canvas.drawCircle等等绘制
 
 
+================================================================== Lrucache/DiskLruCache 的一些知识 ==============================================================================
+DiskLruCache
+1.一般选择的缓存位置是/sdcard/Android/data/<package>/cache目录下
+    a.不会对手机内存存储空间有影响
+    b.程序被卸载时，这里的数据也一起被清除掉
+2.open()创建一个实例
+   a.Editor.edit(key)写入缓存，commit()让其生效
+   b.Snapshot.getInputStream(0)获取输入流
+   c.flush() 将记录同步到日志journal文件中 -- onPause中调用一次即可
+   d.journal日志的写入是dirty前缀，clean是写入成功前缀 remove是写入失败/删除成功前缀，read是读取前缀
+
+
+Lrucache[androidx.collection包下]
+1.Runtime.getRuntime().maxMemory() 获取应用程序最大可用内存
+
+2.loadBitmap 先从内存中获取缓存，没有找到 开启一个任务去异步加载
+，加载前先从磁盘中获取缓存，没有找到 从网络上请求图片并写入磁盘缓存，同时添加到内存缓存
+
+Lrucache的实现
+a.LinkHashMap是HashMap的子类，一些put,get,remove方法都在父类中实现
+    a.特殊的地方：使用双向链表 记录了元素的添加和访问顺序
+        a.双向链表：
+            a.head头节点
+            b.tail尾节点
+            c.before直接前驱
+            d.after直接后驱
+    b.特殊实现的函数：newNode,afterNodeAccess等等
+b.trimToSize
+    a.toEvict获取到第一个节点 evict[i'vikt 驱逐]
+
+
+================================================================== comparator/comparable 的一些知识 ==============================================================================
+
+a.如果某类本身不支持排序，可建立一个”该类的比较器“进行排序 comparator
+    a.需实现compare函数 ， equals函数[这个类中可以在单独的Bean实现]
+b.一个类实现Comparable接口，意味着”该类支持排序“ comparable
+c.配合TreeMap使用，来对需要加密的参数进行升序/降序操作
+
+================================================================== TreeMap 的一些知识 ==============================================================================
+
+a.红黑树的特点
+  + 每个节点红色或者黑色
+  + 路径上不能有两个连续的红色节点
+  + 根节点是黑色
+  + 每个红色节点的两个子节点一定都是黑色
+
+  判断当前节点的父节点是祖父节点的左子树还是右子树
+
+  + 左子树
+
+    + 判断叔父节点颜色
+      + 红色 -- 设置父节点/叔父节点都为黑色，祖父节点为红色 -- 最后设置根节点为黑色
+      + 黑色/没有 -- 判断当前节点是左子树插入 还是 右子树插入
+        + 左子树插入 -- 设置父节点为黑色，祖父节点为红色 -- 以祖父节点右旋转
+        + 右子树插入 -- 以父节点左旋转，并将x重新赋值 -- 左子树插入逻辑
+
+  + 右子树
+
+    + 判断叔父节点颜色
+      + 红色  -- 同上
+      + 黑色/没有 -- 判断当前节点是左子树插入 还是 右子树插入
+        + 右子树插入 -- 设置父节点为黑色，祖父节点为红色 -- 以祖父节点左旋转
+        + 左子树插入 -- 以父节点右旋转，并将x重新赋值 -- 右子树插入逻辑
+
+
+​================================================================== 加密 的一些知识 ==============================================================================
+
+a.MD5 信息摘要算法
+    a.单向摘要算法
+    b.任意长度数据，算出的md5长度是固定的
+    c.MD5加盐操作
+        a.string + key(盐为key)
+        b.string明文的hashcode作为盐
+    d.md5算法返回的是一个128位整数,128位二进制等于32位十六进制,十六进制是取四合一【4位二进制数合成一个1位十六进制数】
+        a.二进制 -- 十进制 每个乘以2的n次方
+        b.十进制 --二进制 除以2，反向取余数
+b.消息摘要
+    a.消息的摘要 - 保证消息的完整性
+c.数字签名
+    a.包括 签名算法 + 验证算法
+    b.公钥密码体制 --  RSA
+    c.对称加密算法
+    d.非对称加密算法
+d.数字证书
+    a.保证公钥安全
+
+
+================================================================== Map 的一些知识 ==============================================================================
+
+a.HashMap是Map的一个实现
+    a.数组 + 链表 + 红黑树
+
+b.HashSet
+    a.内部是利用HashMap添加数据，将将入的数据作为key
+
+c.TreeMap 👆
+    a.红黑树
+    b.添加的时候通过comparator或者comparable比较
+
+d.TreeSet
+    a.基于TreeMap的实现的
+    b.提供有序的Set集合
 
 
 

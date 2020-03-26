@@ -1,6 +1,11 @@
 package com.liangzai.kotlin.fragment
 
+import android.graphics.Paint
 import com.liangzai.kotlin.R
+import com.socks.library.KLog
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_first.*
+import java.util.*
 
 /**
  * @author zhouliang
@@ -10,6 +15,9 @@ import com.liangzai.kotlin.R
  * 1.第一个Fragment
  */
 class FirstFragment : BaseFragment(){
+
+    private var page = 1
+    private var pageSize = 10
 
     override fun getLayoutId(): Int {
        return R.layout.fragment_first
@@ -21,6 +29,27 @@ class FirstFragment : BaseFragment(){
             return FirstFragment()
         }
     }
+
+    override fun initData() {
+        recommendlist()
+    }
+
+    private fun recommendlist() {
+       getTestData()
+
+    }
+
+    private fun getTestData() {
+
+
+    }
+
+    private fun initLayout() {
+
+        initRyLayout(recyclerView)
+    }
+
+
 
 
 }
