@@ -1,14 +1,13 @@
 package com.liangzai.kotlin
 
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.gson.Gson
 import com.liangzai.kotlin.activity.BaseActivity
+import com.liangzai.kotlin.bean.RecommendBean
 import com.liangzai.kotlin.fragment.*
 import com.liangzai.kotlin.utils.ToolUtils
 import kotlinx.android.synthetic.main.common_bottom_layout.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author zhouliang
@@ -37,6 +36,11 @@ class HomeActivity : BaseActivity() {
         ToolUtils.getStartInfo()
 
         initFragment()
+
+//        val gson = Gson()
+//        val jsonString = "{\"name\":\"sunny\",\"age\":24}"
+//        val user: RecommendBean = gson.fromJson<RecommendBean>(jsonString, RecommendBean::class.java)
+
     }
 
 
